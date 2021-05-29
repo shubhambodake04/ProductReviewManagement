@@ -15,7 +15,8 @@ namespace ProductReviewManagementLINQ
             AddDefaultValues(productReviews);
             //GetTop3HighestRatedRecords(productReviews);
             //RatingGreaterThan3(productReviews);
-            CountforeachProductId(productReviews);
+            //CountforeachProductId(productReviews);
+            ProductIdWithReview(productReviews);
 
             Console.ReadKey();
         }
@@ -95,5 +96,17 @@ namespace ProductReviewManagementLINQ
                 }
                 return outputList;
             }
+        static public ArrayList ProductIdWithReview(List<ProductReview> productReviews)
+        {
+            ArrayList outputList = new ArrayList();
+            var records = (from record in productReviews
+                              select record);
+            foreach (var row in records)
+            {
+                Console.WriteLine("ProductId: " + row.productId + " Review: " + row.review);
+                outputList.Add(row.ToString());
+            }
+            return outputList;
         }
+    }
     }
