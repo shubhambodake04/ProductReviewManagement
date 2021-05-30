@@ -16,8 +16,8 @@ namespace ProductReviewManagementLINQ
             //GetTop3HighestRatedRecords(productReviews);
             //RatingGreaterThan3(productReviews);
             //CountforeachProductId(productReviews);
-            ProductIdWithReview(productReviews);
-
+            //ProductIdWithReview(productReviews);
+            SkipTopFiveRecords(productReviews);
             Console.ReadKey();
         }
         static public void AddDefaultValues(List<ProductReview> productReviews)
@@ -107,6 +107,20 @@ namespace ProductReviewManagementLINQ
                 outputList.Add(row.ToString());
             }
             return outputList;
+        }
+        static public ArrayList SkipTopFiveRecords(List<ProductReview> productReviews)
+        {
+            ArrayList outputList = new ArrayList();
+            var records = (from record in productReviews
+                                    select record).Skip(5);
+            foreach (var row in records)
+            {
+                Console.WriteLine(row.ToString());
+                outputList.Add(row.ToString());
+            }
+
+            return outputList;
+
         }
     }
     }
