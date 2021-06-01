@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,12 +13,14 @@ namespace ProductReviewManagementLINQ
         static void Main(string[] args)
         {
             List<ProductReview> productReviews = new List<ProductReview>();
-            AddDefaultValues(productReviews);
+            Program program = new Program();
+            //AddDefaultValues(productReviews);
             //GetTop3HighestRatedRecords(productReviews);
             //RatingGreaterThan3(productReviews);
             //CountforeachProductId(productReviews);
             //ProductIdWithReview(productReviews);
-            SkipTopFiveRecords(productReviews);
+            //SkipTopFiveRecords(productReviews);
+            program.AddInDataTable();
             Console.ReadKey();
         }
         static public void AddDefaultValues(List<ProductReview> productReviews)
@@ -47,7 +50,7 @@ namespace ProductReviewManagementLINQ
                 productReviews.Add(new ProductReview() { productId = 5, userId = 1, rating = 5, isLike = "Yes", review = "Awesome" });
                 productReviews.Add(new ProductReview() { productId = 5, userId = 1, rating = 5, isLike = "Yes", review = "Awesome" });
                 productReviews.Add(new ProductReview() { productId = 5, userId = 1, rating = 5, isLike = "Yes", review = "Awesome" });
-                productReviews.Add(new ProductReview() { productId = 9, userId = 1, rating = 5, isLike = "Yes", review = "Does the work" });
+                productReviews.Add(new ProductReview() { productId = 9, userId = 1, rating = 5, isLike = "Yes", review = "Unsatifactory" });
             }
             static public ArrayList GetTop3HighestRatedRecords(List<ProductReview> productReviews)
             {
@@ -122,5 +125,42 @@ namespace ProductReviewManagementLINQ
             return outputList;
 
         }
+
+        DataTable dt = new DataTable();
+
+        public void AddInDataTable()
+        {
+            dt.Columns.Add("ProductId", typeof(int));
+            dt.Columns.Add("UserId", typeof(int));
+            dt.Columns.Add("Rating", typeof(int));
+            dt.Columns.Add("Review", typeof(string));
+            dt.Columns.Add("IsLike", typeof(string));
+            dt.Rows.Add(1, 1, 5, "Awesome", "Yes");
+            dt.Rows.Add(1, 2, 3, "Good", "Yes");
+            dt.Rows.Add(2, 3, 4, "Good", "No");
+            dt.Rows.Add(1, 4, 3, "Good", "No");
+            dt.Rows.Add(2, 5, 4, "Nice", "Yes");
+            dt.Rows.Add(2, 1, 1, "Not good", "No");
+            dt.Rows.Add(2, 2, 3, "Awesome", "Yes");
+            dt.Rows.Add(3, 3, 4, "Awesome", "Yes");
+            dt.Rows.Add(3, 4, 3, "Awesome", "Yes");
+            dt.Rows.Add(3, 5, 4, "Awesome", "Yes");
+            dt.Rows.Add(3, 1, 5, "Awesome", "Yes");
+            dt.Rows.Add(3, 2, 3, "Awesome", "Yes");
+            dt.Rows.Add(4, 3, 4, "Good", "No");
+            dt.Rows.Add(4, 4, 5, "Good", "No");
+            dt.Rows.Add(4, 5, 3, "Good", "Yes");
+            dt.Rows.Add(5, 1, 4, "Nice", "Yes");
+            dt.Rows.Add(5, 2, 3, "Awesome", "Yes");
+            dt.Rows.Add(5, 3, 4, "Not good", "No");
+            dt.Rows.Add(5, 4, 1, "Nice", "Yes");
+            dt.Rows.Add(5, 5, 3, "Unsatifactory", "No");
+            dt.Rows.Add(7, 1, 4, "Awesome", "Yes");
+            dt.Rows.Add(7, 1, 3, "Awesome", "Yes");
+            dt.Rows.Add(9, 1, 4, "Worst", "No");
+            dt.Rows.Add(9, 1, 5, "Good", "No");
+            dt.Rows.Add(9, 1, 3, "Unsatifactory", "No");
+           
+        }
     }
-    }
+}
