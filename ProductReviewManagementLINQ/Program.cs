@@ -14,13 +14,14 @@ namespace ProductReviewManagementLINQ
         {
             List<ProductReview> productReviews = new List<ProductReview>();
             Program program = new Program();
-            //AddDefaultValues(productReviews);
-            //GetTop3HighestRatedRecords(productReviews);
+           // AddDefaultValues(productReviews);
+           // GetTop3HighestRatedRecords(productReviews);
             //RatingGreaterThan3(productReviews);
             //CountforeachProductId(productReviews);
             //ProductIdWithReview(productReviews);
             //SkipTopFiveRecords(productReviews);
             program.AddInDataTable();
+            program.IsLike();
             Console.ReadKey();
         }
         static public void AddDefaultValues(List<ProductReview> productReviews)
@@ -165,6 +166,19 @@ namespace ProductReviewManagementLINQ
                 Console.WriteLine(R["ProductId"] + " " + R["UserId"] + " " + R["Rating"] + " " + R["Review"] + " " + R["IsLike"] + " ");
             }
         }
-        
+        public void IsLike()
+        {
+            var result = from record in dt.AsEnumerable()
+                         where record.Field<string>("isLike") == "Yes"
+                         select new
+                         {
+                             ProductID = record.Field<int>("ProductId")
+                         };
+            Console.WriteLine(" IsLike : ");
+            foreach (var row in result)
+            {
+                Console.WriteLine(row);
+            }
+        }
     }
 }
