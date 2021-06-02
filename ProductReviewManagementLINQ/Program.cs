@@ -21,7 +21,8 @@ namespace ProductReviewManagementLINQ
             //ProductIdWithReview(productReviews);
             //SkipTopFiveRecords(productReviews);
             program.AddInDataTable();
-            program.IsLike();
+            //program.IsLike();
+            program.RecordsContainsNice();
             Console.ReadKey();
         }
         static public void AddDefaultValues(List<ProductReview> productReviews)
@@ -175,6 +176,21 @@ namespace ProductReviewManagementLINQ
                              ProductID = record.Field<int>("ProductId")
                          };
             Console.WriteLine(" IsLike : ");
+            foreach (var row in result)
+            {
+                Console.WriteLine(row);
+            }
+        }
+
+        public void RecordsContainsNice()
+        {
+            var result = from record in dt.AsEnumerable()
+                       where record.Field<string>("Review").Contains("Nice")
+                       select new
+                       {
+                           ProductID = record.Field<int>("ProductId")
+                       };
+            Console.WriteLine(" Review (Nice): ");
             foreach (var row in result)
             {
                 Console.WriteLine(row);
